@@ -1,6 +1,6 @@
 package application;
 
-public class Cartas {
+public class Cartas{
     // Atributos: País, títulos, participações, gols sofridos em copas e gols marcados em copas
     // Argentina, frança, croácia, marrocos, holanda, inglaterra, brasil, portugal, japão, senegal
     private String pais;

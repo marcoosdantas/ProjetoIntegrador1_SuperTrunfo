@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Main extends Cartas implements Interface {
     public static void main(String[] args) {
+        Jogador jogador = new Jogador("Guerreiro Natanael", 1, 18);
         Scanner sc = new Scanner(System.in);
         ArrayList<Cartas> listaSelecoes = new ArrayList<>();
         Cartas pais1 = new Cartas("Brasil", 5, 73, 21, 227, 113);
@@ -21,30 +22,40 @@ public class Main extends Cartas implements Interface {
         Main main = new Main();
 
         System.out.println("----------SEJA BEM VINDO AO SUPER TRUNFO SELECOES----------");
+        System.out.println("Você é " + jogador.getNome() + " e possui " + jogador.getIdade() + " anos");
         boolean continuar = true;
         while (continuar) {
             System.out.println("Digite uma opção: 1- jogar // 2 - embaralhar // 3 - sair e mostrar resultados");
-            int escolha = sc.nextInt();
-            switch (escolha) {
-                case 1 -> {
-                    System.out.println("Que comecem os jogos! Sua carta é:");
-                    main.jogar(listaSelecoes);
-                }
-                case 2 -> {
-                    System.out.println("Você escolheu embaralhar as cartas.");
-                    main.embaralhar(listaSelecoes);
-                }
-                case 3 -> {
-                    System.out.println("Você escolheu sair do jogo. Obrigado por jogar!");
-                    if (main.getContadorVitoria() != 0 || main.getContadorDerrota() != 0) {
-                        System.out.println("Você ganhou " + main.getContadorVitoria() + " partidas e perdeu " + main.getContadorDerrota() + " partidas.");
-                    } else {
-                        System.out.println("Você não jogou nenhuma partida.");
+            try {
+                int escolha = sc.nextInt();
+                switch (escolha) {
+                    case 1 -> {
+                        System.out.println("Que comecem os jogos! Sua carta é:");
+                        main.jogar(listaSelecoes);
                     }
-                    continuar = false;
-                }
+                    case 2 -> {
+                        System.out.println("Você escolheu embaralhar as cartas.");
+                        main.embaralhar(listaSelecoes);
+                    }
+                    case 3 -> {
+                        System.out.println("Você escolheu sair do jogo. Obrigado por jogar!");
+                        if (main.getContadorVitoria() != 0 || main.getContadorDerrota() != 0) {
+                            System.out.println("Você ganhou " + main.getContadorVitoria() + " partidas e perdeu " + main.getContadorDerrota() + " partidas.");
+                        } else {
+                            System.out.println("Você não jogou nenhuma partida.");
+                        }
+                        continuar = false;
+                    }
 
-                default -> System.out.println("Opção inválida.");
+                    default -> throw new IllegalArgumentException("Erro: Opção inválida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: Por favor, insira um número válido.");
+                sc.next(); // Limpa o buffer de entrada
+
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
         sc.close();
